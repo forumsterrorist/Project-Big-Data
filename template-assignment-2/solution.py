@@ -30,24 +30,41 @@ def read_csv_data(filenames):
             in_experimental_group = false
             for line in data:
                 temp = line.split(';')
-                bedtime = inferBedtime(temp[2], temp[3], temp[4])
+                temp_split = temp[2].split('_')
                 
+                if temp_split[0] == 'lamp' and temp[3] == 'OFF':
+                    
+                    bedtime = inferBedtime(temp_split)
+                    
+                elif temp_split[0] == '':
+                    ...
+                    
 
-def inferBedtime(userid, time, state):    
+def inferBedtime(event):    
 
+        
+    day = event[2]
+    month = get_month(event[3])
+    year = event[4]
+    hour = event[5]
+    minute = event[6]
+    second = event[7]
     
-    time_split = time.split('_')
-    day = time_split[3]
-    month = get_month(time_split[4])
-    year = time_split[5]
-    hour = time_split[6]
-    minute = time_split[7]
-    second = time_split[8]
+    if check_midnight(hour):
+        day -= 1
     
     idx = (datetime.datetime(year, month, day, hour, minute, second))
+    
     return idx
 
 
+def check_midnight(hour):
+    
+    if hour == '00' or hour == '01' or hour == '02' or hour == '03' or hour == '04':
+        return True
+    else:
+        return False
+    
 def get_month(x):
     
     if x == 'juni':
