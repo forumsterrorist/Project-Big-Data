@@ -3,19 +3,19 @@ We truthfully declare:
 - to have contributed approximately equally to this assignment [if this is not true, modify this sentence to disclose individual contributions so we can grade accordingly]
 - that we have neither helped other students nor received help from other students
 - that we provided references for all code that is not our own
-
 Fiachra O Cochlain 2543845@student.vu.nl
-Name Student 2 email@vu.nl
-"""
+Mark Verheul 2539278@student.vu.nl"""
+
+import datetime
 
 def read_csv_data(filenames):
     import pandas as pd
     dataFrame = pd.DataFrame(columns = [
         'bedtime',
         'intended bedtime',
-        'rise_time,
+        'rise_time',
         'rise_reason',
-        'fitness,
+        'fitness',
         'adherence_importance',
         'in_experimental_group'])
         
@@ -34,7 +34,31 @@ def read_csv_data(filenames):
                 
 
 def inferBedtime(userid, time, state):    
+
     
+    time_split = time.split('_')
+    day = time_split[3]
+    month = get_month(time_split[4])
+    year = time_split[5]
+    hour = time_split[6]
+    minute = time_split[7]
+    second = time_split[8]
+    
+    idx = (datetime.datetime(year, month, day, hour, minute, second))
+    return idx
+
+
+def get_month(x):
+    
+    if x == 'juni':
+        return 6
+    elif x == 'mei':
+        return 5
+    elif x == 'augustus':
+        return 8
+    else:
+        print('error')
+        
 def to_mongodb(df):
     None
 
@@ -50,8 +74,6 @@ if __name__ == '__main__':
     df = read_csv_data(["hue_upload.csv","hue_upload2.csv"])
     # to_mongodb(df)
     # read_mongodb({},'_id')
-
-
 
 
 
