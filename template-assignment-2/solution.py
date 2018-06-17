@@ -28,9 +28,20 @@ def read_csv_data(filenames):
             fitness = 0
             adherence_importance = 0
             in_experimental_group = false
+            uid = 0
+            date = pd.datetime.datetime
             for line in data:
                 temp = line.split(';')
-                bedtime = inferBedtime(temp[2], temp[3], temp[4])
+                uid = temp[1]
+                event = temp[2].split('_')
+                if event [4] == "bedtime":
+                    intended_bedtime = inferBedtime (event[0], event[1], event[2], event[3])
+                else if event[4] = "fitness":
+                    fitness = temp[3]
+                    
+                else if event[4] = "adherence":
+                    adherence_importance = temp[3]
+                bedtime = inferBedtime(temp[1], temp[2], temp[3])
                 
 
 def inferBedtime(userid, time, state):    
